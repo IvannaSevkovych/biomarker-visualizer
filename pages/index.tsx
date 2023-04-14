@@ -2,6 +2,17 @@ import { Input, Button, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
 import { BloodVis } from '../domain/model'
 
+const BloodVisComponent: React.FC<{ bloodviz: BloodVis }> = ({ bloodviz }) => {
+    return (
+        <div>
+            <div>{bloodviz.biomarker}</div>
+            <div>{bloodviz.customersValue.value}</div>
+            <div>{bloodviz.lowerNorm.value}</div>
+            <div>{bloodviz.upperNorm.value}</div>
+        </div>
+    )
+}
+
 export default function Home() {
     const [biomarker, setBiomarker] = useState('')
     const [customersValue, setCustomersValue] = useState(undefined)
@@ -30,12 +41,10 @@ export default function Home() {
             <div>
                 {bloodvizes.map((bloodviz: BloodVis) => {
                     return (
-                        <div key={bloodviz.biomarker}>
-                            <div>{bloodviz.biomarker}</div>
-                            <div>{bloodviz.customersValue.value}</div>
-                            <div>{bloodviz.lowerNorm.value}</div>
-                            <div>{bloodviz.upperNorm.value}</div>
-                        </div>
+                        <BloodVisComponent
+                            key={bloodviz.biomarker}
+                            bloodviz={bloodviz}
+                        ></BloodVisComponent>
                     )
                 })}
             </div>
