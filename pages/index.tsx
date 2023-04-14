@@ -1,78 +1,73 @@
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { Input, Button, Flex } from '@chakra-ui/react'
+import { useState } from 'react'
+import { BloodVis } from '../domain/model'
 
 export default function Home() {
+    const [biomarker, setBiomarker] = useState('')
+    const [customersValue, setCustomersValue] = useState(undefined)
+    const [lowerNorm, setLowerNorm] = useState(undefined)
+    const [upperNorm, setUpperNorm] = useState(undefined)
+
+    // TODO add mini states for all forms
+    const [bloodvizes, setBloodvizes] = useState([])
+
+    function addBloodVis() {
+        const bloodVis: BloodVis = {
+            biomarker,
+            customersValue: { value: customersValue },
+            lowerNorm: { value: lowerNorm },
+            upperNorm: { value: upperNorm },
+        }
+        setBloodvizes([...bloodvizes, bloodVis])
+        setBiomarker('')
+        setCustomersValue(undefined)
+        setLowerNorm(undefined)
+        setUpperNorm(undefined)
+    }
+
     return (
-        <div className={styles.container}>
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-
-                <p className={styles.description}>
-                    Get started by editing{' '}
-                    <code className={styles.code}>pages/index.js</code>
-                </p>
-
-                <div className={styles.grid}>
-                    <a href="https://nextjs.org/docs" className={styles.card}>
-                        <h3>Documentation &rarr;</h3>
-                        <p>
-                            Find in-depth information about Next.js features and
-                            API.
-                        </p>
-                    </a>
-
-                    <a href="https://nextjs.org/learn" className={styles.card}>
-                        <h3>Learn &rarr;</h3>
-                        <p>
-                            Learn about Next.js in an interactive course with
-                            quizzes!
-                        </p>
-                    </a>
-
-                    <a
-                        href="https://github.com/vercel/next.js/tree/canary/examples"
-                        className={styles.card}
-                    >
-                        <h3>Examples &rarr;</h3>
-                        <p>
-                            Discover and deploy boilerplate example Next.js
-                            projects.
-                        </p>
-                    </a>
-
-                    <a
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.card}
-                    >
-                        <h3>Deploy &rarr;</h3>
-                        <p>
-                            Instantly deploy your Next.js site to a public URL
-                            with Vercel.
-                        </p>
-                    </a>
-                </div>
-            </main>
-
-            <footer className={styles.footer}>
-                <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by{' '}
-                    <Image
-                        src="/vercel.svg"
-                        alt="Vercel Logo"
-                        width={100}
-                        height={100}
-                        className={styles.logo}
-                    />
-                </a>
-            </footer>
+        <div>
+            <div>
+                {bloodvizes.map((bloodviz: BloodVis) => {
+                    return (
+                        <div key={bloodviz.biomarker}>
+                            <div>{bloodviz.biomarker}</div>
+                            <div>{bloodviz.customersValue.value}</div>
+                            <div>{bloodviz.lowerNorm.value}</div>
+                            <div>{bloodviz.upperNorm.value}</div>
+                        </div>
+                    )
+                })}
+            </div>
+            <Flex gap={3}>
+                <Input
+                    type="text"
+                    placeholder="biomarker"
+                    value={biomarker}
+                    onChange={(e) => setBiomarker(e.target.value)}
+                />
+                <Input
+                    type="number"
+                    placeholder="customersValue"
+                    value={customersValue}
+                    onChange={(e) => setCustomersValue(e.target.value)}
+                />
+                <Input
+                    type="number"
+                    placeholder="lowerNorm"
+                    value={lowerNorm}
+                    onChange={(e) => setLowerNorm(e.target.value)}
+                />
+                <Input
+                    type="number"
+                    placeholder="upperNorm"
+                    value={upperNorm}
+                    onChange={(e) => setUpperNorm(e.target.value)}
+                />
+            </Flex>
+            <Button marginY={3} colorScheme="blue" onClick={addBloodVis}>
+                +
+            </Button>
         </div>
     )
 }
