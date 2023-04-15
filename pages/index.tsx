@@ -55,21 +55,21 @@ export default function Home() {
                     type="number"
                     step="any"
                     placeholder="customersValue"
-                    value={customersValue}
+                    value={customersValue || ''}
                     onChange={(e) => setCustomersValue(e.target.value)}
                 />
                 <Input
                     type="number"
                     step="any"
                     placeholder="lowerNorm"
-                    value={lowerNorm}
+                    value={lowerNorm || ''}
                     onChange={(e) => setLowerNorm(e.target.value)}
                 />
                 <Input
                     type="number"
                     step="any"
                     placeholder="upperNorm"
-                    value={upperNorm}
+                    value={upperNorm || ''}
                     onChange={(e) => setUpperNorm(e.target.value)}
                 />
             </Flex>
