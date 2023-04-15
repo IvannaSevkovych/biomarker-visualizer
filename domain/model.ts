@@ -3,7 +3,7 @@ export type BloodValue = {
     unit?: string
 }
 
-export type BloodVis = {
+export type BiomarkerData = {
     biomarker: string
     customersValue: BloodValue
     lowerNorm: BloodValue

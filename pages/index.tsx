@@ -1,17 +1,7 @@
 import { Input, Button, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
-import { BloodVis } from '../domain/model'
-
-const BloodVisComponent: React.FC<{ bloodviz: BloodVis }> = ({ bloodviz }) => {
-    return (
-        <div>
-            <div>{bloodviz.biomarker}</div>
-            <div>{bloodviz.customersValue.value}</div>
-            <div>{bloodviz.lowerNorm.value}</div>
-            <div>{bloodviz.upperNorm.value}</div>
-        </div>
-    )
-}
+import { BiomarkerData } from '../domain/model'
+import { BiomarkerPlot } from '../components/BiomarkerPlot'
 
 export default function Home() {
     const [biomarker, setBiomarker] = useState('')
@@ -19,17 +9,16 @@ export default function Home() {
     const [lowerNorm, setLowerNorm] = useState(undefined)
     const [upperNorm, setUpperNorm] = useState(undefined)
 
-    // TODO add mini states for all forms
-    const [bloodvizes, setBloodvizes] = useState([])
+    const [biomarkers, setBiomarkers] = useState<BiomarkerData[]>([])
 
-    function addBloodVis() {
-        const bloodVis: BloodVis = {
+    function addBiomarker() {
+        const biomarkerData: BiomarkerData = {
             biomarker,
-            customersValue: { value: customersValue },
-            lowerNorm: { value: lowerNorm },
-            upperNorm: { value: upperNorm },
+            customersValue: { value: customersValue || -1 },
+            lowerNorm: { value: lowerNorm || -1 },
+            upperNorm: { value: upperNorm || -1 },
         }
-        setBloodvizes([...bloodvizes, bloodVis])
+        setBiomarkers([...biomarkers, biomarkerData])
         setBiomarker('')
         setCustomersValue(undefined)
         setLowerNorm(undefined)
@@ -39,12 +28,12 @@ export default function Home() {
     return (
         <div>
             <div>
-                {bloodvizes.map((bloodviz: BloodVis) => {
+                {biomarkers.map((data: BiomarkerData) => {
                     return (
-                        <BloodVisComponent
-                            key={bloodviz.biomarker}
-                            bloodviz={bloodviz}
-                        ></BloodVisComponent>
+                        <BiomarkerPlot
+                            key={data.biomarker}
+                            data={data}
+                        ></BiomarkerPlot>
                     )
                 })}
             </div>
@@ -74,7 +63,7 @@ export default function Home() {
                     onChange={(e) => setUpperNorm(e.target.value)}
                 />
             </Flex>
-            <Button marginY={3} colorScheme="blue" onClick={addBloodVis}>
+            <Button marginY={3} colorScheme="blue" onClick={addBiomarker}>
                 +
             </Button>
         </div>
