@@ -1,4 +1,4 @@
-import { Input, Button, Flex } from '@chakra-ui/react'
+import { Input, Button, Flex, Stack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { BiomarkerData } from '../domain/model'
 import { BiomarkerPlot } from '../components/BiomarkerPlot'
@@ -9,7 +9,14 @@ export default function Home() {
     const [lowerNorm, setLowerNorm] = useState(undefined)
     const [upperNorm, setUpperNorm] = useState(undefined)
 
-    const [biomarkers, setBiomarkers] = useState<BiomarkerData[]>([])
+    const [biomarkers, setBiomarkers] = useState<BiomarkerData[]>([
+        {
+            biomarker: 'test',
+            customersValue: { value: 4 },
+            lowerNorm: { value: 2 },
+            upperNorm: { value: 5 },
+        },
+    ])
 
     function addBiomarker() {
         const biomarkerData: BiomarkerData = {
@@ -27,7 +34,7 @@ export default function Home() {
 
     return (
         <div>
-            <div>
+            <Stack gap={1}>
                 {biomarkers.map((data: BiomarkerData) => {
                     return (
                         <BiomarkerPlot
@@ -36,7 +43,7 @@ export default function Home() {
                         ></BiomarkerPlot>
                     )
                 })}
-            </div>
+            </Stack>
             <Flex gap={3}>
                 <Input
                     type="text"
