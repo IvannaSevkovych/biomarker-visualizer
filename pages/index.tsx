@@ -12,10 +12,12 @@ import { BiomarkerPlot } from '../components/BiomarkerPlot'
 import { BiomarkerPlotLegend } from '../components/BiomarkerPlotLegend'
 
 export default function Home() {
-    const [biomarker, setBiomarker] = useState('')
-    const [customersValue, setCustomersValue] = useState(undefined)
-    const [lowerNorm, setLowerNorm] = useState(undefined)
-    const [upperNorm, setUpperNorm] = useState(undefined)
+    const [biomarker, setBiomarker] = useState<string>('')
+    const [customersValue, setCustomersValue] = useState<number | undefined>(
+        undefined
+    )
+    const [lowerNorm, setLowerNorm] = useState<number | undefined>(undefined)
+    const [upperNorm, setUpperNorm] = useState<number | undefined>(undefined)
 
     const [biomarkers, setBiomarkers] = useState<BiomarkerData[]>([
         {
@@ -85,21 +87,23 @@ export default function Home() {
                         step="any"
                         placeholder="Ваше значение"
                         value={customersValue || ''}
-                        onChange={(e) => setCustomersValue(e.target.value)}
+                        onChange={(e) =>
+                            setCustomersValue(Number(e.target.value))
+                        }
                     />
                     <Input
                         type="number"
                         step="any"
                         placeholder="Нижний референс"
                         value={lowerNorm || ''}
-                        onChange={(e) => setLowerNorm(e.target.value)}
+                        onChange={(e) => setLowerNorm(Number(e.target.value))}
                     />
                     <Input
                         type="number"
                         step="any"
                         placeholder="Верхний референс"
                         value={upperNorm || ''}
-                        onChange={(e) => setUpperNorm(e.target.value)}
+                        onChange={(e) => setUpperNorm(Number(e.target.value))}
                     />
                 </Flex>
                 <Button
