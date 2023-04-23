@@ -1,5 +1,5 @@
 import { BiomarkerData } from '../domain/model'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 
 export const BiomarkerPlot: React.FC<{ data: BiomarkerData }> = ({ data }) => {
     const { customersValue, lowerNorm, upperNorm, biomarker } = data
@@ -7,13 +7,13 @@ export const BiomarkerPlot: React.FC<{ data: BiomarkerData }> = ({ data }) => {
         (customersValue.value - lowerNorm.value) /
         (upperNorm.value - lowerNorm.value)
     const offset = `${customerRelativeToOptimum * 100}%`
-    console.log(offset)
 
     return (
-        <Flex gap={2}>
-            <Box w="150px">{biomarker}</Box>
-            {/* <div>{customerRelativeToOptimum}</div> */}
-            <Flex grow="1">
+        <Flex gap={2} flexDirection={{ base: 'column', lg: 'row' }}>
+            <Text fontSize="sm" w={200}>
+                {biomarker}
+            </Text>
+            <Flex grow="1" h={5}>
                 <Box bg="red.50" w={0.2}></Box>
                 <Flex w={0.6} position="relative">
                     <Box bg="green.200" flexGrow={1}></Box>
