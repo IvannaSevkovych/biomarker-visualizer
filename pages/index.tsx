@@ -19,20 +19,7 @@ export default function Home() {
     const [lowerNorm, setLowerNorm] = useState<number | undefined>(undefined)
     const [upperNorm, setUpperNorm] = useState<number | undefined>(undefined)
 
-    const [biomarkers, setBiomarkers] = useState<BiomarkerData[]>([
-        {
-            biomarker: 'test',
-            customersValue: { value: 4 },
-            lowerNorm: { value: 2 },
-            upperNorm: { value: 5 },
-        },
-        {
-            biomarker: 'test2',
-            customersValue: { value: 1 },
-            lowerNorm: { value: 2 },
-            upperNorm: { value: 5 },
-        },
-    ])
+    const [biomarkers, setBiomarkers] = useState<BiomarkerData[]>([])
 
     function addBiomarker() {
         const biomarkerData: BiomarkerData = {
